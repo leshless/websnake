@@ -1,0 +1,249 @@
+@font-face {
+  font-family: FatKat;
+  src: url("../static/fonts/FatKat.otf");
+}
+
+@font-face {
+  font-family: Wheaton;
+  src: url("../static/fonts/Wheaton.otf");
+}
+
+@font-face {
+  font-family: PCsenior;
+  src: url("../static/fonts/PCsenior.ttf");
+}
+
+* {
+  caret-color: transparent;
+  text-decoration: none;
+}
+
+input{
+  caret-color: #FFDDFF;
+}
+
+input:focus{
+  outline: none;
+}
+
+input::placeholder{
+  text-shadow: none;
+}
+
+html, body{
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+}
+
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #20201D;
+  background-image: url("../static/images/background.svg");
+  background-size: 3%;
+  background-position-x: 10px;
+  background-position-y: 5px;
+}
+
+#main{
+  position: absolute;
+  height: 100vh;
+  width: 850px;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  
+  box-shadow: inset 0px 0px 40px 10px #0A0B0B;
+  background-color: #131515;
+  border-left: 3px solid #0A0B0B;
+  border-right: 3px solid #0A0B0B;
+}
+
+#field{
+  margin-top: 50px;
+  position: relative;
+
+  display: flex;
+  flex-flow: column-reverse wrap;
+}
+
+#display{
+  margin: 30px 0 0 0;
+  position: relative;
+  height: 200px;
+
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+
+  border-radius: 1% / 5%;
+}
+
+#score{
+  position: relative;
+  margin-left: 30px;
+  padding-top: 30px;
+  height: 100%;
+}
+
+#gameover{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#buttons{
+  margin-right: 30px;
+  padding-top: 30px;
+}
+
+#back{
+  margin-top: 20px;
+  width: 150px;
+  height: 50px;
+}
+
+#retry{
+  width: 150px;
+  height: 50px;
+}
+
+#websnake{
+  margin-top: 100px;
+  font-size: 100px;
+  color: #D9D7D3;
+  text-shadow: 0px 0px 7px #FFDDFF;;
+}
+
+#nav{
+  margin-top: 100px;
+  width: 550px;
+  height: 700px;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+
+  border-radius: 3% / 2%;
+}
+
+#to-game{
+  margin-top: 50px;
+  width: 400px;
+  height: 120px;
+}   
+
+#to-leaderboard{
+  margin-top: 50px;
+  width: 400px;
+  height: 120px;
+}
+
+#main-info{
+  margin-top: 300px;
+}
+
+#login-title{
+  margin-top: 100px;
+  font-size: 100px;
+}
+
+#username-input, #password-input{
+  margin-top: 100px;
+  width: 400px;
+
+  border: none;
+  border-bottom: 4px solid #FFDDFF;
+  font-size: 30px;
+}
+
+#login-info{
+  margin-top: 50px;
+  font-size: 16px;
+}
+
+#login-button{
+  margin-top: 150px;
+  width: 400px;
+  height: 50px;
+}
+
+#back-button{
+  margin-top: 40px;
+  width: 400px;
+  height: 50px;
+}
+
+#register-info{
+  margin-top: 50px;
+  font-size: 16px;
+}
+
+.screen{
+  border-radius: 5%;  
+  background-color: #0A0A0A;
+  color: #D9D7D3;
+  text-shadow: 0px 0px 7px #FFDDFF;
+}
+
+.button{
+  border: 2px solid #D9D7D3;
+  box-shadow: 0px 0px 7px #FFDDFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:hover{
+  color: #0A0A0A;
+  background-color: #D9D7D3;
+  cursor: pointer;
+}
+
+.tile-empty{
+  z-index: 0;
+  background-color: #0A0A0A;
+  box-shadow: none;
+}
+
+.tile-snake{
+  z-index: 1;
+  background-color: #47A025;
+  filter: drop-shadow(0 0 5px #64D039);
+}
+
+.tile-bonus{
+  z-index: 1;
+  background-color: #FD0D25;
+  filter: drop-shadow(0 0 5px #FD495B)
+}
+
+.title{
+  display: flex;
+  align-items: center;
+
+  font-family: Wheaton;
+  font-size: 70px;
+  color: #D9D7D3;
+  text-shadow: 0px 0px 7px #FFDDFF;
+}
+
+.text{
+  font-family: PCsenior;
+  font-size: 20px;
+  color: #D9D7D3;
+  text-shadow: 0px 0px 7px #FFDDFF;
+}
+
+.link:hover{
+  text-decoration: underline;
+}
