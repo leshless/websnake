@@ -6,7 +6,6 @@ const logout = document.getElementById("logout")
 const username_display = document.getElementById("username-display")
 const logout_button = document.getElementById("logout-button")
 
-
 body.onload = () => {
     const session = localStorage.getItem("session")
     if (session){
@@ -24,6 +23,8 @@ body.onload = () => {
 
                 username_display.innerHTML = `${res.user.username} | `
             }
+
+            leaderboard()
         })
     }
 }

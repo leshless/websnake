@@ -26,6 +26,9 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/register.html'))
 })
+app.get('/leaderboard', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/leaderboard.html'))
+})
 
 app.post('/login', (req, res) => {
   const username = req.body.username
@@ -34,7 +37,7 @@ app.post('/login', (req, res) => {
   const stmt = "SELECT * FROM user WHERE name = ? AND password = ?"
 
   db.get(stmt, username, password, function (err, row) {
-    if (err != null){
+    if (err){
       res.json({
         error: err.code,
         session: null
@@ -60,7 +63,7 @@ app.post('/register', (req, res) => {
   const stmt = "INSERT INTO user (name, password, score) VALUES (?, ?, 0)"
 
   db.run(stmt, username, password, function (err) {
-    if (err != null){
+    if (err){
       res.json({
         error: err.code,
         session: null
@@ -96,7 +99,7 @@ app.post('/user', (req, res) => {
   const stmt = "SELECT * FROM user WHERE id = ?"
 
   db.get(stmt, id, function (err, row) {
-    if (err != null){
+    if (err){
       res.json({
         error: err.code,
         user: null
@@ -113,6 +116,34 @@ app.post('/user', (req, res) => {
   })
 })
 
+app.post('/leaderboard', (req, res) => {
+  const stmt = "SELECT name, score FROM user"
+
+  db.all(stmt, function (err, rows) {
+    if (err){
+      res.json({
+        error: err,
+        list: null
+      })
+    }else{
+      rows.sort((a, b) => {
+        if (a.score < b.score){
+          return -1
+        }else if (a.score > b.score){
+          return 1
+        }else{
+          return (a.name < b.name ? -1 : 1)
+        }
+      })
+      rows = rows.slice(0, Math.min(10, rows.length))
+
+      res.json({
+        error: null,
+        list: rows
+      })
+    }
+  })
+})
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`)
