@@ -5,11 +5,12 @@ const username_input = document.getElementById("username-input")
 const password_input = document.getElementById("password-input")
 const button = document.getElementById("login-button")
 
+
 button.onclick = () => {
     const username = username_input.value 
     const password = password_input.value
 
-    frontend.SendPost('login', {
+    frontend.SendPost('register', {
         username: username,
         password: password
     })

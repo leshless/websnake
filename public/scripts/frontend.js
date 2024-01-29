@@ -1,7 +1,7 @@
 const SERVER = new URL("http://localhost:8000/")
 
-async function SendPost(path, body){
-    req = {
+export async function SendPost(path, body){
+    const req = {
         method: "POST",
         headers: {
             "Content-type": "application/json"

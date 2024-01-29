@@ -13,8 +13,19 @@
             <div id="nav" class="screen">
                 <a id="to-game" class="button text" href="/game">Play</a>
                 <div id="to-leaderboard" class="button text">leaderboard</div>
-                <a id="main-info" class="text link" href="/login">Login to save score</a>
+                <div id="main-info">
+                    <div id="signin">
+                        <a href="/login" class="text link">Sign in</a>
+                        <a class="text">&nbspto save score</a>
+                    </div>
+                    <div id="logout">
+                        <a class="text" id="username-display"></a>
+                        <a class="text link" id="logout-button">Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <script src="./scripts/main.js" type="module"></script>
     </body>
 </html>
