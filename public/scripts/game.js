@@ -1,3 +1,5 @@
+import * as frontend from "./frontend.js"
+
 const FIELD_WIDTH = 750
 const FIELD_MARGIN = 1 
 const FIELD_SIZE = 16
@@ -36,6 +38,8 @@ const body = document.body
 const field = document.getElementById("field")
 const display = document.getElementById("display")
 const score = document.getElementById("score")
+const best = document.getElementById("best")
+const savescore = document.getElementById("savescore")
 const gameover = document.getElementById("gameover")
 const retry = document.getElementById("retry")
 const main = document.getElementById("main")
@@ -44,6 +48,7 @@ const main = document.getElementById("main")
 const game = {
     active: false
 }
+let bestscore = null
 
 function SetupField(){
     field.style.width = `${FIELD_WIDTH}px`
@@ -105,7 +110,56 @@ function UpdateTiles(){
 }
 
 function UpdateScore(){
+    if (game.active && (bestscore != null)){
+        if (game.score > bestscore){
+            bestscore = game.score 
+            savescore.innerHTML = "New best!"
+        }
+        if (game.score < bestscore){
+            savescore.innerHTML = ""
+        }
+        best.innerHTML = `best ${bestscore}`
+    }
     score.innerHTML = `score ${game.score}`
+}
+
+function SaveScore(){
+    const session = localStorage.getItem("session")
+    if (session != null){
+        frontend.SendPost("score", {
+            session: session,
+            score: game.score
+        }).then(res => {
+            if (res.error){
+                alert(`Failed to save score. (${res.error})`)
+            }else{
+                ///
+            }
+        })
+    }
+
+
+}
+
+function GetScore(){
+    const session = localStorage.getItem("session")
+    if (session){
+        frontend.SendPost('user', {
+            session: session
+        })
+        .then(res => {
+            if (res.error){
+                alert("Your session key is deprecated.")
+                localStorage.removeItem("session")
+                window.location.href = "./"
+            }else{
+                bestscore = res.user.score
+                savescore.innerHTML = ""
+                savescore.classList.add("newbest")
+                best.innerHTML = `best ${bestscore}`
+            }
+        })
+    }
 }
 
 function UpdateGameOver(){
@@ -117,7 +171,7 @@ function UpdateGameOver(){
 }
 
 function SpawnBonus(){
-    candidates = []
+    let candidates = []
     for (let x = 0; x < FIELD_SIZE; x++){
         for (let y = 0; y < FIELD_SIZE; y++){
             if (game.tiles[x][y] == TILE_EMPTY){
@@ -156,16 +210,18 @@ function SetupGame(){
 function StartGame(){
     SetupGame()
     game.active = true
+    UpdateScore()
     UpdateGameOver()
 }
 
 function EndGame(){
     game.active = false
+    SaveScore()
     UpdateGameOver()
 }
 
 function UpdateGame(){
-    head = {x: game.snake[game.snake.length - 1].x, y: game.snake[game.snake.length - 1].y}
+    const head = {x: game.snake[game.snake.length - 1].x, y: game.snake[game.snake.length - 1].y}
     switch (game.control){
     case CONTROL_LEFT:
         head.x--
@@ -235,6 +291,7 @@ function Animate(time) {
 }
 
 body.onload = () => {
+    GetScore()
     SetupField()
     StartGame()
     Animate()

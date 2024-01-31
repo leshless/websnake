@@ -43,6 +43,13 @@ app.post('/login', (req, res) => {
         session: null
       })
     }else{
+      if (!row){
+        res.json({
+          error: "WRONG PASSWORD",
+          session: null
+        })
+        return
+      }
       const id = row.id
       const session = uuid.v4()
       
@@ -86,8 +93,6 @@ app.post('/user', (req, res) => {
   const session = req.body.session
   const id = sessions.get(session)
 
-  console.log(sessions)
-
   if (id == undefined){
     res.json({
       error: "NOT FOUND",
@@ -127,9 +132,9 @@ app.post('/leaderboard', (req, res) => {
       })
     }else{
       rows.sort((a, b) => {
-        if (a.score < b.score){
+        if (a.score > b.score){
           return -1
-        }else if (a.score > b.score){
+        }else if (a.score < b.score){
           return 1
         }else{
           return (a.name < b.name ? -1 : 1)
@@ -137,9 +142,49 @@ app.post('/leaderboard', (req, res) => {
       })
       rows = rows.slice(0, Math.min(10, rows.length))
 
+
       res.json({
         error: null,
         list: rows
+      })
+    }
+  })
+})
+
+app.post('/score', (req, res) => {
+  const session = req.body.session
+  const id = sessions.get(session)
+
+  if (id == undefined){
+    res.json({
+      error: "NOT FOUND",
+    })
+    return
+  }
+
+  let score = req.body.score
+
+  let stmt = "SELECT * FROM user WHERE id = ?"
+  db.get(stmt, id, function (err, row) {
+    if (err){
+      res.json({
+        error: err.code,
+      })
+      return
+    }else{
+      score = Math.max(score, row.score)
+
+      stmt = "UPDATE user SET score = ? WHERE id = ?"
+      db.run(stmt, score, id, function (err) {
+        if (err){
+          res.json({
+            error: err.code,
+          })
+        }else{
+          res.json({
+            error: null,
+          })
+        }
       })
     }
   })

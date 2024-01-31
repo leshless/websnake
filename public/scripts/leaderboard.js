@@ -12,7 +12,20 @@ body.onload = () => {
         }else{
             res.list.forEach(user => {
                 const row = document.createElement("div")
+                row.classList.add("leaderboard-row")
 
+                const name = document.createElement("a")
+                name.classList.add("text", "leaderboard-name")
+                name.innerHTML = user.name
+
+                const score = document.createElement("a")
+                score.classList.add("text", "leaderboard-score")
+                score.innerHTML = user.score
+
+                row.appendChild(name)
+                row.appendChild(score)
+                
+                leaderboard.appendChild(row)
             });
         }
     })

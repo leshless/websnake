@@ -13,6 +13,19 @@
   src: url("../static/fonts/PCsenior.ttf");
 }
 
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #FFDDFF;   
+  border-radius: 10px;
+}
+
 * {
   caret-color: transparent;
   text-decoration: none;
@@ -83,11 +96,25 @@ body{
   border-radius: 1% / 5%;
 }
 
-#score{
+#score-info{
   position: relative;
-  margin-left: 30px;
-  padding-top: 30px;
-  height: 100%;
+  width: 500px;
+
+  display: flex;
+  flex-flow: column;
+}
+
+#score, #best, #savescore{
+  margin-top: 25px;
+  margin-left: 20px;
+}
+
+#savescore{
+  margin-top: 60px
+}
+
+#savescore{
+  position: relative;
 }
 
 #gameover{
@@ -121,7 +148,7 @@ body{
   margin-top: 100px;
   font-size: 100px;
   color: #D9D7D3;
-  text-shadow: 0px 0px 7px #FFDDFF;;
+  text-shadow: 0px 0px 7px #FFDDFF;
 }
 
 #nav{
@@ -190,12 +217,11 @@ body{
 }
 
 #login-info{
-  margin-top: 50px;
-  font-size: 16px;
+  margin-top: 40px;
 }
 
 #login-button{
-  margin-top: 150px;
+  margin-top: 170px;
   width: 400px;
   height: 50px;
 }
@@ -207,16 +233,35 @@ body{
 }
 
 #register-info{
-  margin-top: 50px;
-  font-size: 16px;
+  margin-top: 40px;
 }
 
 #leaderboard{
   width: 100%;
   height: 550px;
+  margin: 20px;
 
   display: flex;
-  flex-flow: wrap column;
+  flex-flow: wrap row;
+  overflow-y: auto;
+  align-content: start;
+}
+
+.newbest{
+  font-family: PCsenior;
+  font-size: 20px;
+  color: #EAD94C;
+  text-shadow: 0px 0px 7px #F0E57F;
+}
+
+.leaderboard-row{
+  margin: 10px;
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px 0 15px;
 }
 
 .screen{
@@ -271,6 +316,13 @@ body{
 .text{
   font-family: PCsenior;
   font-size: 20px;
+  color: #D9D7D3;
+  text-shadow: 0px 0px 7px #FFDDFF;
+}
+
+.small-text{
+  font-family: PCsenior;
+  font-size: 16px;
   color: #D9D7D3;
   text-shadow: 0px 0px 7px #FFDDFF;
 }

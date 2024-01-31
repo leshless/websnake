@@ -13,13 +13,20 @@
                 <div id="gameover" class="title">GAME OVER!</div>
             </div>  
             <div id="display" class="screen">
-                <div id="score" class="text">score 0</div>
+                <div id="score-info">
+                    <div id="score" class="text">score 0</div>
+                    <div id="best" class="text">&nbsp</div>
+                    <div id="savescore">
+                        <a href="/login" class="text link">Sign in</a>
+                        <a class="text">&nbspto save score</a>
+                    </div>
+                </div>
                 <div id="buttons">
                     <div id="retry" class="button text">Retry</div>
                     <a id="back" class="button text" href="/">Back</a>
                 </div>
             </div>
         </div>
-        <script src="scripts/game.js"></script>
+        <script src="scripts/game.js" type="module"></script>
     </body>
 </html>
